@@ -8,6 +8,9 @@ user_emotion = user_all[...,:5] #截取前五列所有元素
 
 user_rating = user_all[...,5:]
 
+#print(user_all)
+#print(user_emotion)
+#print(user_rating)
 
 def count_emtion_distance():
     #for user in np.nditer(array, flags = ["external_loop"],order = 'C'):
@@ -25,10 +28,23 @@ def count_emtion_distance():
             dis_all = abs(dis0) + abs(dis1) + abs(dis2) + abs(dis3) + abs(dis4)
             emotion_dis_array.append(dis_all)
     return emotion_dis_array
-print(count_emtion_distance())
+#print(count_emtion_distance())
 
 def count_rating_distance():
     rating_dis_array = []
+    for i in range(0,9):
+        ar = user_rating[i,...]
+        for j in range(i+1,0):
+            br = user_rating[j,...]
+            dis0 = ar[0] - br[0]
+            dis1 = ar[1] - br[1]
+            dis2 = ar[2] - br[2]
+            dis3 = ar[3] - br[3]
+            dis4 = ar[4] - br[4]
+            dis_all = abs(dis0) + abs(dis1) + abs(dis2) + abs(dis3) + abs(dis4)
+            rating_dis_array.append(dis_all)
+    return rating_dis_array
+
 
 
 #使用sympy计算用户的和谐度
@@ -45,7 +61,8 @@ s = sympy.symbols('s')
 FC = sympy.symbols('FC')
 FC = 1 - sympy.sqrt(((qa-qb)**2 * (ua - ub)**2)/10**4 * s)
 
-print(FC)
+
+
 
 
 
